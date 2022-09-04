@@ -9,6 +9,7 @@ import smtplib
 import ssl
 import json
 
+# Reusable Login Function
 def login(driver, url, usernameId, username, passwordId, password, submit_buttonId):
     driver.get(url)
     element = WebDriverWait(driver, 10).until(
@@ -60,7 +61,7 @@ def main():
 
     #PG&E 
     try:
-        driver = webdriver.Chrome(executable_path='/Users/liamwebsterreal/Documents/projects/bills_script/chromedriver')
+        driver = webdriver.Chrome(executable_path='/Users/liamwebsterreal/Documents/projects/bills_script/chromedriver', options=options)
         login(driver, "https://www.pge.com/", """//*[@id="username"]""", "liamcw2001@gmail.com", """//*[@id="password"]""", "magicStuff404", """//*[@id="home_login_submit"]""")
         element = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.ID, "spntotalAmountDueUI"))
