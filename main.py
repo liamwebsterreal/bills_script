@@ -162,7 +162,7 @@ Liam you are due to pay: $%f
     receiver = "ngetz24@berkeley.edu" # Recipient's address
     subject = "APT 403 Monthly Bill"
     if(Error):
-        text = json.dumps(Errors)
+        exit()
     else:
         text = """
 -------------------------------------------
@@ -192,7 +192,7 @@ Noah you are due to pay: $%f
     receiver = "ophir.josh@gmail.com" # Recipient's address
     subject = "APT 403 Monthly Bill"
     if(Error):
-        text = json.dumps(Errors)
+        exit()
     else:
         text = """
 -------------------------------------------
