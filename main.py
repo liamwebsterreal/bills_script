@@ -155,6 +155,66 @@ Liam you are due to pay: $%f
         server.login(sender, password)
         server.sendmail(sender, receiver, message)
 
+    # Noah Email
+    ctx = ssl.create_default_context()
+    password = "zbqwelcdfdbvqssq"    # Your app password goes here
+    sender = "liam.webster.dev@gmail.com"    # Your e-mail address
+    receiver = "ngetz24@berkeley.edu" # Recipient's address
+    subject = "APT 403 Monthly Bill"
+    if(Error):
+        text = json.dumps(Errors)
+    else:
+        text = """
+-------------------------------------------
+Hello Noah,
+
+Monthly APT 403 Cost Breakdown:
+    B&T Utils: $%f
+    PGE Utils: $%f
+    Sonic Utils: $%f
+Total Utilities: $%f
+Total Due: $%f
+
+Individual Utilities: $%f
+Rent Rate: $%f
+Noah you are due to pay: $%f
+-------------------------------------------
+""" % (BT_util, pge_bal, sonic_bal, total_util, total_bill, individual_util, 2200.00, Noah_total)
+    message = 'Subject: {}\n\n{}'.format(subject, text)
+    with smtplib.SMTP_SSL("smtp.gmail.com", port=465, context=ctx) as server:
+        server.login(sender, password)
+        server.sendmail(sender, receiver, message)
+
+    # Josh Email
+    ctx = ssl.create_default_context()
+    password = "zbqwelcdfdbvqssq"    # Your app password goes here
+    sender = "liam.webster.dev@gmail.com"    # Your e-mail address
+    receiver = "ophir.josh@gmail.com" # Recipient's address
+    subject = "APT 403 Monthly Bill"
+    if(Error):
+        text = json.dumps(Errors)
+    else:
+        text = """
+-------------------------------------------
+Hello Josh,
+
+Monthly APT 403 Cost Breakdown:
+    B&T Utils: $%f
+    PGE Utils: $%f
+    Sonic Utils: $%f
+Total Utilities: $%f
+Total Due: $%f
+
+Individual Utilities: $%f
+Rent Rate: $%f
+Josh you are due to pay: $%f
+-------------------------------------------
+""" % (BT_util, pge_bal, sonic_bal, total_util, total_bill, individual_util, 2395.00, Josh_total)
+    message = 'Subject: {}\n\n{}'.format(subject, text)
+    with smtplib.SMTP_SSL("smtp.gmail.com", port=465, context=ctx) as server:
+        server.login(sender, password)
+        server.sendmail(sender, receiver, message)
+
     
     
 if __name__ == "__main__":
