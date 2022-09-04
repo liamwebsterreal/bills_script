@@ -21,7 +21,6 @@ def login(driver, url, usernameId, username, passwordId, password, submit_button
 
 def main():
 
-
 ###################################### 
 #               Setup                # 
 ###################################### 
@@ -40,7 +39,7 @@ def main():
     # Setting selenium to headless mode
     options = Options()
     options.add_argument('--headless')
-    options.add_argument('--disable-gpu')  # options=options
+    options.add_argument('--disable-gpu') 
 
     # Initializing Error dictionary
     Error=False
@@ -61,7 +60,7 @@ def main():
 
     #PG&E 
     try:
-        driver = webdriver.Chrome(executable_path='/Users/liamwebsterreal/Documents/projects/bills_script/chromedriver', options=options)
+        driver = webdriver.Chrome(executable_path='/Users/liamwebsterreal/Documents/projects/bills_script/chromedriver')
         login(driver, "https://www.pge.com/", """//*[@id="username"]""", "liamcw2001@gmail.com", """//*[@id="password"]""", "magicStuff404", """//*[@id="home_login_submit"]""")
         element = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.ID, "spntotalAmountDueUI"))
@@ -80,7 +79,6 @@ def main():
 
     #Brick and Timber
     try:
-        driver = webdriver.Chrome(executable_path='/Users/liamwebsterreal/Documents/projects/bills_script/chromedriver', options=options)
         login(driver,"https://properties-rentbt.securecafe.com/residentservices/apartmentsforrent/userlogin.aspx", """//*[@id="Username"]""", BT_user, """//*[@id="Password"]""", BT_password, """//*[@id="SignIn"]""")
         element = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.ID, "MyAccountBalanceView"))
@@ -98,7 +96,6 @@ def main():
 
     #Sonic
     try: 
-        driver = webdriver.Chrome(executable_path='/Users/liamwebsterreal/Documents/projects/bills_script/chromedriver', options=options)
         login(driver, "https://members.sonic.net/", """//*[@id="user"]""", sonic_user, """//*[@id="pw"]""", sonic_password, """//*[@id="login"]/input[2]""")
         element = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.CLASS_NAME, "col-md-12"))
@@ -160,65 +157,7 @@ Liam you are due to pay: $%f
         server.sendmail(sender, receiver, message)
 
     
-    # Noah Email
-    ctx = ssl.create_default_context()
-    password = "zbqwelcdfdbvqssq"    # Your app password goes here
-    sender = "liam.webster.dev@gmail.com"    # Your e-mail address
-    receiver = "ngetz24@berkeley.edu" # Recipient's address
-    subject = "APT 403 Monthly Bill"
-    if(Error):
-        text = json.dumps(Errors)
-    else:
-        text = """
--------------------------------------------
-Hello Noah,
 
-Monthly APT 403 Cost Breakdown:
-    B&T Utils: $%f
-    PGE Utils: $%f
-    Sonic Utils: $%f
-Total Utilities: $%f
-Total Due: $%f
-
-Individual Utilities: $%f
-Rent Rate: $%f
-Noah you are due to pay: $%f
--------------------------------------------
-""" % (BT_util, pge_bal, sonic_bal, total_util, total_bill, individual_util, 2200.00, Noah_total)
-    message = 'Subject: {}\n\n{}'.format(subject, text)
-    with smtplib.SMTP_SSL("smtp.gmail.com", port=465, context=ctx) as server:
-        server.login(sender, password)
-        server.sendmail(sender, receiver, message)
-
-    # Josh Email
-    ctx = ssl.create_default_context()
-    password = "zbqwelcdfdbvqssq"    # Your app password goes here
-    sender = "liam.webster.dev@gmail.com"    # Your e-mail address
-    receiver = "ophir.josh@gmail.com" # Recipient's address
-    subject = "APT 403 Monthly Bill"
-    if(Error):
-        text = json.dumps(Errors)
-    else:
-        text = """
--------------------------------------------
-Hello Josh,
-
-Monthly APT 403 Cost Breakdown:
-    B&T Utils: $%f
-    PGE Utils: $%f
-    Sonic Utils: $%f
-Total Utilities: $%f
-Total Due: $%f
-
-Individual Utilities: $%f
-Rent Rate: $%f
-Josh you are due to pay: $%f
--------------------------------------------
-""" % (BT_util, pge_bal, sonic_bal, total_util, total_bill, individual_util, 2395.00, Josh_total)
-    message = 'Subject: {}\n\n{}'.format(subject, text)
-    with smtplib.SMTP_SSL("smtp.gmail.com", port=465, context=ctx) as server:
-        server.login(sender, password)
-        server.sendmail(sender, receiver, message)
 
 
 if __name__ == "__main__":
