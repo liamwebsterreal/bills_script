@@ -28,7 +28,6 @@ def main():
     # Loading Login Info from yaml file
     with open('LoginInfo.yml', 'r') as file:
         conf = yaml.safe_load(file)
-
     BT_user = conf['BandT']['user']
     BT_password = conf['BandT']['password']
     pge_user = conf['pge']['user']
@@ -36,10 +35,11 @@ def main():
     sonic_user = conf['sonic']['user']
     sonic_password = conf['sonic']['password']
 
-    # Setting selenium to headless mode
+    # Setting selenium up
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu') 
+    driver = webdriver.Chrome(executable_path='/Users/liamwebsterreal/Documents/projects/bills_script/chromedriver')
 
     # Initializing Error dictionary
     Error=False
@@ -48,11 +48,13 @@ def main():
         "PG&E": None,
         "Sonic": None,
     }
+
     # Initializing Balances to zero
     total_util = 0
     pge_bal = 0
     BT_bal = 0
     sonic_bal = 0
+
 
 ###################################### 
 #      Scraping and Extracting       # 
@@ -60,7 +62,6 @@ def main():
 
     #PG&E 
     try:
-        driver = webdriver.Chrome(executable_path='/Users/liamwebsterreal/Documents/projects/bills_script/chromedriver')
         login(driver, "https://www.pge.com/", """//*[@id="username"]""", "liamcw2001@gmail.com", """//*[@id="password"]""", "magicStuff404", """//*[@id="home_login_submit"]""")
         element = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.ID, "spntotalAmountDueUI"))
@@ -74,8 +75,6 @@ def main():
         print("no good")
         Error = True
         Errors["PG&E"] = "Error while extracting bill information from https://m.pge.com/"
-
-
 
     #Brick and Timber
     try:
@@ -93,7 +92,6 @@ def main():
         Error = True
         Errors["B&T"] = "Error while extracting bill information from https://properties-rentbt.securecafe.com"
         
-
     #Sonic
     try: 
         login(driver, "https://members.sonic.net/", """//*[@id="user"]""", sonic_user, """//*[@id="pw"]""", sonic_password, """//*[@id="login"]/input[2]""")
@@ -121,6 +119,7 @@ def main():
     Liam_total = 2000 + individual_util
     Noah_total = 2200 + individual_util
     Josh_total = 2395 + individual_util
+
 
 ###################################### 
 #             Emailing               # 
@@ -157,8 +156,6 @@ Liam you are due to pay: $%f
         server.sendmail(sender, receiver, message)
 
     
-
-
-
+    
 if __name__ == "__main__":
     main()
