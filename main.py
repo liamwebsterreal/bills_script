@@ -1,3 +1,5 @@
+#!/Users/liamwebsterreal/Documents/projects/bills_script/venv/bin/python
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -26,7 +28,7 @@ def main():
 ###################################### 
 
     # Loading Login Info from yaml file
-    with open('LoginInfo.yml', 'r') as file:
+    with open('/Users/liamwebsterreal/Documents/projects/bills_script/LoginInfo.yml', 'r') as file:
         conf = yaml.safe_load(file)
     BT_user = conf['BandT']['user']
     BT_password = conf['BandT']['password']
@@ -86,7 +88,7 @@ def main():
         balance = soup.find("div", class_="span6 total-balance text-error")
         BT_bal = balance.text
         BT_bal = BT_bal.strip('$').replace(',', '').strip(' ').strip('\n')
-        BT_bal = float(BT_bal) + 2023.49
+        BT_bal = float(BT_bal)
         BT_util = BT_bal - 6595.00
     except:
         Error = True
@@ -135,21 +137,21 @@ def main():
         text = json.dumps(Errors)
     else:
         text = """
--------------------------------------------
-Hello Liam,
+    -------------------------------------------
+    Hello Liam,
 
-Monthly APT 403 Cost Breakdown:
-    B&T Utils: $%f
-    PGE Utils: $%f
-    Sonic Utils: $%f
-Total Utilities: $%f
-Total Due: $%f
+    Monthly APT 403 Cost Breakdown:
+        B&T Utils: $%f
+        PGE Utils: $%f
+        Sonic Utils: $%f
+    Total Utilities: $%f
+    Total Due: $%f
 
-Individual Utilities: $%f
-Rent Rate: $%f
-Liam you are due to pay: $%f
--------------------------------------------
-""" % (BT_util, pge_bal, sonic_bal, total_util, total_bill, individual_util, 2000.00, Liam_total)
+    Individual Utilities: $%f
+    Rent Rate: $%f
+    Liam you are due to pay: $%f
+    -------------------------------------------
+    """ % (BT_util, pge_bal, sonic_bal, total_util, total_bill, individual_util, 2000.00, Liam_total)
     message = 'Subject: {}\n\n{}'.format(subject, text)
     with smtplib.SMTP_SSL("smtp.gmail.com", port=465, context=ctx) as server:
         server.login(sender, password)
@@ -165,21 +167,21 @@ Liam you are due to pay: $%f
         exit()
     else:
         text = """
--------------------------------------------
-Hello Noah,
+    -------------------------------------------
+    Hello Noah,
 
-Monthly APT 403 Cost Breakdown:
-    B&T Utils: $%f
-    PGE Utils: $%f
-    Sonic Utils: $%f
-Total Utilities: $%f
-Total Due: $%f
+    Monthly APT 403 Cost Breakdown:
+        B&T Utils: $%f
+        PGE Utils: $%f
+        Sonic Utils: $%f
+    Total Utilities: $%f
+    Total Due: $%f
 
-Individual Utilities: $%f
-Rent Rate: $%f
-Noah you are due to pay: $%f
--------------------------------------------
-""" % (BT_util, pge_bal, sonic_bal, total_util, total_bill, individual_util, 2200.00, Noah_total)
+    Individual Utilities: $%f
+    Rent Rate: $%f
+    Noah you are due to pay: $%f
+    -------------------------------------------
+    """ % (BT_util, pge_bal, sonic_bal, total_util, total_bill, individual_util, 2200.00, Noah_total)
     message = 'Subject: {}\n\n{}'.format(subject, text)
     with smtplib.SMTP_SSL("smtp.gmail.com", port=465, context=ctx) as server:
         server.login(sender, password)
@@ -195,21 +197,21 @@ Noah you are due to pay: $%f
         exit()
     else:
         text = """
--------------------------------------------
-Hello Josh,
+    -------------------------------------------
+    Hello Josh,
 
-Monthly APT 403 Cost Breakdown:
-    B&T Utils: $%f
-    PGE Utils: $%f
-    Sonic Utils: $%f
-Total Utilities: $%f
-Total Due: $%f
+    Monthly APT 403 Cost Breakdown:
+        B&T Utils: $%f
+        PGE Utils: $%f
+        Sonic Utils: $%f
+    Total Utilities: $%f
+    Total Due: $%f
 
-Individual Utilities: $%f
-Rent Rate: $%f
-Josh you are due to pay: $%f
--------------------------------------------
-""" % (BT_util, pge_bal, sonic_bal, total_util, total_bill, individual_util, 2395.00, Josh_total)
+    Individual Utilities: $%f
+    Rent Rate: $%f
+    Josh you are due to pay: $%f
+    -------------------------------------------
+    """ % (BT_util, pge_bal, sonic_bal, total_util, total_bill, individual_util, 2395.00, Josh_total)
     message = 'Subject: {}\n\n{}'.format(subject, text)
     with smtplib.SMTP_SSL("smtp.gmail.com", port=465, context=ctx) as server:
         server.login(sender, password)
