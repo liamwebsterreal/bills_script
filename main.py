@@ -1,6 +1,7 @@
 #!/Users/liamwebsterreal/Documents/projects/bills_script/venv/bin/python
 
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -11,7 +12,7 @@ import smtplib
 import ssl
 import json
 
-# Reusable Login Function
+# Login Function
 def login(driver, url, usernameId, username, passwordId, password, submit_buttonId):
     driver.get(url)
     element = WebDriverWait(driver, 10).until(
@@ -28,7 +29,7 @@ def main():
 ###################################### 
 
     # Loading Login Info from yaml file
-    with open('/Users/liamwebsterreal/Documents/projects/bills_script/LoginInfo.yml', 'r') as file:
+    with open('C:/Users/liamc/Documents/projects/bills_script/LoginInfo.yml', 'r') as file:
         conf = yaml.safe_load(file)
     BT_user = conf['BandT']['user']
     BT_password = conf['BandT']['password']
@@ -41,7 +42,7 @@ def main():
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu') 
-    driver = webdriver.Chrome(executable_path='/Users/liamwebsterreal/Documents/projects/bills_script/chromedriver')
+    driver = webdriver.Chrome(ChromeDriverManager().install())
 
     # Initializing Error dictionary
     Error=False
@@ -216,6 +217,7 @@ def main():
     with smtplib.SMTP_SSL("smtp.gmail.com", port=465, context=ctx) as server:
         server.login(sender, password)
         server.sendmail(sender, receiver, message)
+
 
     
     
